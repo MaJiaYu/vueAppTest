@@ -1,6 +1,22 @@
 <script src="https://unpkg.com/vue"></script>
-<script src="app.js"></script>
+<script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+<script src="./app.js"></script>
 <div id="app">
   {{ message }}
 </div>
-
+<script>
+  var a = [];
+  for (let i = 0; i < 10; i++) {
+    a[i] = function () {
+      console.log(i);
+    };
+  }
+  alert(a[6]());
+  // 10
+ new Vue({
+    el: '#app',
+    data: {
+      message: a[6]()
+    }
+  });
+</script>
