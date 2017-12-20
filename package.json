@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/MaJiaYu/vueAppTest/issues"
   },
-  "homepage": "https://github.com/MaJiaYu/vueAppTest#readme"
+  "homepage": "https://github.com/MaJiaYu/vueAppTest#readme",
+  "dependencies": {
+    "vue": "^2.5.11"
+  }
 }

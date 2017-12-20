@@ -1,22 +1,66 @@
 <script src="https://unpkg.com/vue"></script>
-<script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+<script src="./jquery.min.js"></script>
 <script src="./app.js"></script>
-<div id="app">
-  {{ message }}
+<style>
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity .5s
+  }
+
+  .fade-enter,
+  .fade-leave-to
+  /* .fade-leave-active in below version 2.1.8 */
+
+  {
+    opacity: 0
+  }
+</style>
+<div id="todo-list-example">
+  <input v-model="newTodoText" v-on:keyup.enter="addNewTodo" placeholder="Add a todo">
+  <ul>
+    <li is="todo-item" v-for="(todo, index) in todos" v-bind:key="todo.id" v-bind:title="todo.title" v-on:remove="todos.splice(index, 1)"></li>
+  </ul>
 </div>
 <script>
-  var a = [];
-  for (let i = 0; i < 10; i++) {
-    a[i] = function () {
-      console.log(i);
-    };
-  }
-  alert(a[6]());
-  // 10
- new Vue({
-    el: '#app',
+  Vue.component('todo-item', {
+    template: '\
+    <transition name="fade"> \
+    <li>\
+      {{ title }}\
+      <button v-on:click="$emit(\'remove\')">X</button>\
+    </li>\
+    </transition>\
+  ',
+    props: ['title']
+  })
+
+  new Vue({
+    el: '#todo-list-example',
     data: {
-      message: a[6]()
+      newTodoText: '',
+      todos: [{
+          id: 1,
+          title: 'Do the dishes',
+        },
+        {
+          id: 2,
+          title: 'Take out the trash',
+        },
+        {
+          id: 3,
+          title: 'Mow the lawn'
+        }
+      ],
+      nextTodoId: 4
+    },
+    methods: {
+      addNewTodo: function () {
+        this.todos.push({
+          id: this.nextTodoId++,
+          title: this.newTodoText
+        })
+        this.newTodoText = ''
+      }
     }
-  });
+  })
 </script>
